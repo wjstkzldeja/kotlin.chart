@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="color_white">#ffffff</color>
+    <color name="color_black">#000000</color>
+    <color name="color_test">#fffff3</color>
+
+    <!-- fragment_connect_sensor -->
+    <color name="color_2B2B2B">#2B2B2B</color>
+    <color name="color_313131">#313131</color>
+    <color name="color_7A7A7A">#7A7A7A</color>
+
+    <!-- activity_main -->
+    <color name="color_1F1F1F">#1F1F1F</color>
+    <color name="color_757575">#757575</color>
+
+    <!-- layout_progress -->
+    <color name="color_21222A">#21222A</color>
+    <color name="color_5480F7">#5480F7</color>
+    <color name="color_37529B">#37529B</color>
+    <color name="color_1C202B">#1C202B</color>
+</resources>

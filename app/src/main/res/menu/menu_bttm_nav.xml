@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/icon_discover"
+        android:title="@string/menu_today" />
+
+    <item
+        android:id="@+id/healthPathFragment"
+        android:icon="@drawable/icon_discover"
+        android:title="@string/menu_health_path" />
+
+    <item
+        android:id="@+id/synergyFragment"
+        android:icon="@drawable/icon_discover"
+        android:title="@string/menu_synergy" />
+
+    <item
+        android:id="@+id/myFragment"
+        android:icon="@drawable/icon_discover"
+        android:title="@string/menu_my" />
+</menu>

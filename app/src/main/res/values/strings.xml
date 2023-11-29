@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">gcare</string>
+    <string name="test_string">test_string</string>
+
+    <!--food lens-->
+    <!--  <string name="foodlens_app_token">[5752142f55e04e7b9149083c6a508db7]</string>
+      <string name="foodlens_company_token">[b6dfb9da11f441e0ae123bbea96c7086]</string>
+      <string name="foodlens_access_token">[b6dfb9da11f441e0ae123bbea96c7086]</string>-->
+
+    <string name="foodlens_app_token">5752142f55e04e7b9149083c6a508db7</string>
+    <string name="foodlens_company_token">b6dfb9da11f441e0ae123bbea96c7086</string>
+    <string name="foodlens_access_token">b6dfb9da11f441e0ae123bbea96c7086</string>
+
+    <!-- fragment_terra -->
+    <string name="btn_freestyle_libre">freestyle libre</string>
+    <string name="btn_samsung_health">samsung health</string>
+
+    <!-- fragment_libre -->
+    <string name="btn_glucose_data">glucose data</string>
+
+    <!-- fragment_samsung -->
+    <string name="btn_weight_data">weight data</string>
+    <string name="btn_steps_data">steps data</string>
+
+    <string name="txt_weight_data">weight: %.1f</string>
+    <string name="txt_weight_average_data">weight_average: %.1f</string>
+    <string name="txt_steps_data">steps: %s</string>
+    <string name="txt_steps_total_data">steps_total: %s</string>
+
+    <!--login-->
+    <string name="login_viewpager_0">내 삶에</string>
+    <string name="login_viewpager_1">기록 콕!</string>
+    <string name="login_viewpager_2">핏되어 가는</string>
+    <string name="login_viewpager_3">기록 경험 공유하기</string>
+
+    <string name="termsOfService_bottomsheet_title">약관에 동의해 주세요.</string>
+    <string name="termsOfService_bottomsheet_subtitle">안심하세요, 개인정보와 서비스 이용권리를\n잘 지켜드릴게요</string>
+    <string name="termsOfService_bottomsheet_submit">가입 완료</string>
+    <string name="termsOfService_bottomsheet_alltitle">모두 동의해요</string>
+    <string name="termsOfService_bottomsheet_allsub">약관 및 개인정보보호방침에 동의합니다.</string>
+    <string name="termsOfService_bottomsheet_14">(필수) 만 14세 이상이에요</string>
+    <string name="termsOfService_bottomsheet_terms">(필수) 서비스 이용약관 동의</string>
+    <string name="termsOfService_bottomsheet_policy">(필수) 개인정보처리방침 동의</string>
+
+    <!-- fragment_connect_sensor -->
+    <string name="connect_sensor_title">센서 연결</string>
+    <string name="connect_sensor_header">혈당 센서를 몸에 부착한 후,\n아래 버튼을 눌러 연결해 주세요.</string>
+    <string name="connect_sensor_skip">skip ></string>
+    <string name="connect_sensor_section">휴대폰 전면 카메라 부분을\n센서에 맞대어 주면 연결이 됩니다.</string>
+    <string name="connect_sensor_prev_button">이전</string>
+    <string name="connect_sensor_button">센서와 연결</string>
+
+    <!-- fragment_begin -->
+    <string name="begin_title">모든 준비 완료!</string>
+    <string name="begin_header">%s님이 앞으로 걸어갈\n건강 여정을 확인해 주세요</string>
+    <string name="begin_button">건강여정 시작하기</string>
+
+    <!-- menu_bottom_navigation -->
+    <string name="menu_today">오늘</string>
+    <string name="menu_health_path">건강 경로</string>
+    <string name="menu_synergy">시너지</string>
+    <string name="menu_my">마이</string>
+</resources>

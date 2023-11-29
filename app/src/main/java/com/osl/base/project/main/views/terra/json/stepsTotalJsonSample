@@ -1,0 +1,20 @@
+[
+  {
+    "endTime": "2023-04-11T23:59:59.999999999",
+    "result": {
+      "dataOrigins": [
+        {
+          "packageName": "com.sec.android.app.shealth"
+        }
+      ],
+      "doubleValues": {},
+      "longValues": {
+        "Steps_count_total": 8410
+      }
+    },
+    "startTime": "2023-04-10T00:00"
+  }
+]
+<Type>
+endTime: LocalDateTime
+startTime: LocalDateTime

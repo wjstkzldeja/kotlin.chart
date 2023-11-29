@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--the jamsil-->
+    <font
+        android:font="@font/the_jamsil_thin_100"
+        android:fontStyle="normal"
+        android:fontWeight="100"
+        app:font="@font/the_jamsil_thin_100"
+        app:fontStyle="normal"
+        app:fontWeight="100" />
+
+    <font
+        android:font="@font/the_jamsil_light_300"
+        android:fontStyle="normal"
+        android:fontWeight="300"
+        app:font="@font/the_jamsil_light_300"
+        app:fontStyle="normal"
+        app:fontWeight="300" />
+
+    <font
+        android:font="@font/the_jamsil_regular_400"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/the_jamsil_regular_400"
+        app:fontStyle="normal"
+        app:fontWeight="400" />
+
+    <font
+        android:font="@font/the_jamsil_medium_500"
+        android:fontStyle="normal"
+        android:fontWeight="500"
+        app:font="@font/the_jamsil_medium_500"
+        app:fontStyle="normal"
+        app:fontWeight="500" />
+
+
+    <font
+        android:font="@font/the_jamsil_bold_700"
+        android:fontStyle="normal"
+        android:fontWeight="700"
+        app:font="@font/the_jamsil_bold_700"
+        app:fontStyle="normal"
+        app:fontWeight="700" />
+
+    <font
+        android:font="@font/the_jamsil_extra_bold_800"
+        android:fontStyle="normal"
+        android:fontWeight="800"
+        app:font="@font/the_jamsil_extra_bold_800"
+        app:fontStyle="normal"
+        app:fontWeight="800" />
+
+</font-family>

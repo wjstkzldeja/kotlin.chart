@@ -1,0 +1,28 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        jcenter()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        jcenter()
+    }
+}
+
+def props = new Properties()
+file("info/info.properties").withInputStream { stream -> props.load(stream) }
+
+rootProject.name = props.projectName
+include ':app'
+include ':logger'
+include ':osl'
+include ':data'
+include ':domain'
+include ':entity'

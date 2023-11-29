@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.osl.base.project.main.views.home.HomeFragment"
+        android:label="HomeFragment">
+        <action
+            android:id="@+id/action_homeFragment_to_testDialog"
+            app:destination="@id/testDialog" />
+        <action
+            android:id="@+id/action_homeFragment_to_chartFragment"
+            app:destination="@id/chartFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_rulerFragment"
+            app:destination="@id/rulerFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_terraFragment"
+            app:destination="@id/terraFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_foodLensFragment"
+            app:destination="@id/foodLensFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_alarmFragment"
+            app:destination="@id/alarmFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="com.osl.base.project.main.views.chart.ChartFragment"
+        android:label="ChartFragment" >
+        <action
+            android:id="@+id/action_chartFragment_to_chartBarFragment"
+            app:destination="@id/chartBarFragment" />
+        <action
+            android:id="@+id/action_chartFragment_to_chartPointFragment"
+            app:destination="@id/chartPointFragment" />
+        <action
+            android:id="@+id/action_chartFragment_to_chartLineFragment"
+            app:destination="@id/chartLineFragment" />
+        <action
+            android:id="@+id/action_chartFragment_to_chartLineNotScrollFragment"
+            app:destination="@id/chartLineNotScrollFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chartBarFragment"
+        android:name="com.osl.base.project.main.views.chart.bar.ChartBarFragment"
+        android:label="ChartBarFragment" />
+
+    <fragment
+        android:id="@+id/chartPointFragment"
+        android:name="com.osl.base.project.main.views.chart.point.ChartPointFragment"
+        android:label="ChartPointFragment" />
+
+    <fragment
+        android:id="@+id/chartLineFragment"
+        android:name="com.osl.base.project.main.views.chart.line.ChartLineFragment"
+        android:label="ChartLineFragment" />
+
+    <fragment
+        android:id="@+id/chartLineNotScrollFragment"
+        android:name="com.osl.base.project.main.views.chart.linenotscroll.ChartLineNotScrollFragment"
+        android:label="ChartLineNotScrollFragment" />
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.osl.base.project.main.views.calendar.CalendarFragment"
+        android:label="CalendarFragment" />
+
+    <fragment
+        android:id="@+id/rulerFragment"
+        android:name="com.osl.base.project.main.views.ruler.RulerFragment"
+        android:label="RulerFragment" />
+
+    <fragment
+        android:id="@+id/foodLensFragment"
+        android:name="com.osl.base.project.main.views.foodlens.FoodLensFragment"
+        android:label="FoodLensFragment" />
+
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.osl.base.project.main.views.camera.CameraFragment"
+        android:label="CameraFragment" />
+
+    <fragment
+        android:id="@+id/alarmFragment"
+        android:name="com.osl.base.project.main.views.alarm.AlarmFragment"
+        android:label="AlarmFragment" />
+
+    <fragment
+        android:id="@+id/terraFragment"
+        android:name="com.osl.base.project.main.views.terra.TerraFragment"
+        android:label="TerraFragment">
+        <action
+            android:id="@+id/action_terraFragment_to_libreFragment"
+            app:destination="@id/libreFragment" />
+        <action
+            android:id="@+id/action_terraFragment_to_samsungFragment"
+            app:destination="@id/samsungFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/libreFragment"
+        android:name="com.osl.base.project.main.views.terra.libre.LibreFragment"
+        android:label="LibreFragment" />
+
+    <fragment
+        android:id="@+id/samsungFragment"
+        android:name="com.osl.base.project.main.views.terra.samsung.SamsungFragment"
+        android:label="SamsungFragment" />
+
+    <!-- login -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.osl.base.project.main.views.login.LoginFragment"
+        android:label="LoginFragment" />
+    <fragment
+        android:id="@+id/loginViewPagerFragment1"
+        android:name="com.osl.base.project.main.views.login.viewpager.LoginViewPagerFragment1"
+        android:label="LoginViewPagerFragment1" />
+    <fragment
+        android:id="@+id/loginViewPagerFragment2"
+        android:name="com.osl.base.project.main.views.login.viewpager.LoginViewPagerFragment2"
+        android:label="LoginViewPagerFragment2" />
+    <fragment
+        android:id="@+id/loginViewPagerFragment3"
+        android:name="com.osl.base.project.main.views.login.viewpager.LoginViewPagerFragment3"
+        android:label="LoginViewPagerFragment3" />
+    <fragment
+        android:id="@+id/loginViewPagerFragment4"
+        android:name="com.osl.base.project.main.views.login.viewpager.LoginViewPagerFragment4"
+        android:label="LoginViewPagerFragment4" />
+    <fragment
+        android:id="@+id/termsOfServiceBottomSheetFragment"
+        android:name="com.osl.base.project.main.views.login.TermsOfServiceBottomSheetFragment"
+        android:label="TermsOfServiceBottomSheetFragment" />
+
+    <!--dialog-->
+    <dialog
+        android:id="@+id/testDialog"
+        android:name="com.osl.base.project.main.views.dialog.TestDialog"
+        android:label="TestDialog"
+        tools:layout="@layout/dialog_test" />
+
+    <fragment
+        android:id="@+id/connectSensorFragment"
+        android:name="com.osl.base.project.main.views.history_taking.connect_sensor.ConnectSensorFragment"
+        android:label="ConnectSensorFragment" />
+
+    <fragment
+        android:id="@+id/beginFragment"
+        android:name="com.osl.base.project.main.views.history_taking.begin.BeginFragment"
+        android:label="BeginFragment" />
+
+    <fragment
+        android:id="@+id/todayFragment"
+        android:name="com.osl.base.project.main.views.bottom_navigation.today.TodayFragment"
+        android:label="TodayFragment" />
+
+    <fragment
+        android:id="@+id/healthPathFragment"
+        android:name="com.osl.base.project.main.views.bottom_navigation.health_path.HealthPathFragment"
+        android:label="HealthPathFragment" />
+
+    <fragment
+        android:id="@+id/synergyFragment"
+        android:name="com.osl.base.project.main.views.bottom_navigation.synergy.SynergyFragment"
+        android:label="SynergyFragment" />
+
+    <fragment
+        android:id="@+id/myFragment"
+        android:name="com.osl.base.project.main.views.bottom_navigation.my.MyFragment"
+        android:label="MyFragment" />
+
+    <fragment
+        android:id="@+id/viewPagerFragment"
+        android:name="com.osl.base.project.main.views.history_taking.ViewPagerFragment"
+        android:label="ViewPagerFragment" />
+</navigation>

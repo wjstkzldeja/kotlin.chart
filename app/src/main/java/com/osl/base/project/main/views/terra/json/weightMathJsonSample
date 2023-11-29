@@ -1,0 +1,13 @@
+{
+  "dataOrigins": [
+    {
+      "packageName": "com.sec.android.app.shealth"
+    }
+  ],
+  "doubleValues": {
+    "Weight_weight_min": 66.80000305175781,
+    "Weight_weight_avg": 67.86666870117188,
+    "Weight_weight_max": 69.4000015258789
+  },
+  "longValues": {}
+}

@@ -1,0 +1,28 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    apply from: 'versions.gradle'
+
+    addRepos(repositories)
+
+    dependencies {
+        classpath deps.navigation.safe_args_plugin
+        classpath deps.realm
+        classpath deps.google_services
+    }
+}
+
+plugins {
+    id 'com.android.application' version '7.2.0' apply false
+    id 'com.android.library' version '7.2.0' apply false
+    id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
+}
+
+ext {
+    def props = new Properties()
+    file("info/info.properties").withInputStream { stream -> props.load(stream) }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

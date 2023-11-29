@@ -1,0 +1,406 @@
+/*
+ * Copyright (C) 2018 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+/**
+ * Shared file between builds so that they can all use the same dependencies and
+ * maven repositories.
+ **/
+ext.deps = [:]
+def versions = [:]
+
+// androidx library : https://developer.android.com/jetpack/androidx/versions?hl=ko
+versions.activity = '1.5.1'
+// androidx
+versions.annotations = "1.4.0"
+// androidx
+versions.appcompat = "1.5.0"
+// androidx
+versions.arch_core = "2.1.0"
+
+// android test support library : https://developer.android.com/jetpack/androidx/releases/test#declaring_dependencies
+versions.atsl_core = "1.4.0" // core, core_ktx
+versions.atsl_junit = "1.1.3" // junit, junit_ktx
+versions.atsl_truth = "1.4.0"
+versions.atsl_runner = "1.4.0"
+versions.atsl_orchestrator = "1.4.1"
+
+// aws library : https://docs.aws.amazon.com/ko_kr/sdk-for-java/v1/developer-guide/setup-project-gradle.html#project-setup-for-gradle-4-6-or-higher
+versions.aws_bom = "2.17.102"
+
+// androidx
+versions.benchmark = "1.1.0"
+// androidx
+versions.cardview = "1.0.0"
+
+// https://github.com/adroitandroid/ChipCloud
+versions.chipCloud = "2.2.1"
+
+// androidx
+versions.constraint_layout = "2.1.4"
+// androidx
+versions.core_ktx = "1.8.0"
+// androidx : https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-android
+versions.coroutines = "1.4.1"
+// google dagger : https://mvnrepository.com/artifact/com.google.dagger/dagger
+versions.dagger = "2.16"
+versions.dexmaker = "2.2.0"
+versions.espresso = "3.3.0"
+// androidx
+versions.exifInterface = "1.3.3"
+versions.firebase_bom = "29.0.3"
+// androidx
+versions.fragment = "1.5.2"
+// android glide : https://github.com/bumptech/glide
+versions.glide = "4.13.2"
+// android google services : https://developers.google.com/android/guides/google-services-plugin
+versions.google_services = "4.3.14"
+// json parser : https://github.com/google/gson
+versions.gson = "2.9.1"
+// google core library for java : https://github.com/google/guava
+versions.guava = "31.1" // for jre [$versions.guava-jre], for android [$versions.guava-android]
+
+versions.junit = '4.13.2'
+//kotlin
+versions.kotlin = "1.6.10"
+// androidx
+versions.lifecycle = "2.5.1"
+// android lottie library : https://github.com/airbnb/lottie-android
+versions.lottie = "5.2.0"
+// androidx : https://maven.google.com/web/index.html#com.google.android.material:material
+versions.material = "1.6.1"
+// android realm database : https://www.mongodb.com/docs/realm/sdk/kotlin/install/android/
+versions.realm = "10.9.0"
+versions.mockito = "2.25.0"
+versions.mockito_all = "1.10.19"
+versions.mockito_android = "2.25.0"
+versions.mockwebserver = "3.8.1"
+// androidx
+versions.navigation = "2.5.1"
+// http library : https://github.com/square/okhttp
+versions.okhttp_bom = "4.10.0"
+// androidx : https://developer.android.com/jetpack/androidx/releases/paging
+versions.paging = "3.1.1"
+// androidx
+versions.recyclerview = "1.2.1"
+// rest api library : https://github.com/square/retrofit
+versions.retrofit = "2.9.0"
+versions.robolectric = "4.2.1"
+// androidx
+versions.room = "2.4.3"
+// rx android v2 : https://github.com/ReactiveX/RxAndroid/tree/2.x
+versions.rx_android = "2.1.1"
+// rx kotlin v2 : https://github.com/ReactiveX/RxKotlin/tree/2.x
+versions.rx2_kotlin = "2.4.0"
+// rx java v2 : https://github.com/ReactiveX/RxJava/tree/2.x
+versions.rxjava2 = "2.2.10"
+// androidx
+versions.supportV4 = "1.0.0"
+// debug with chrome browser : https://github.com/facebook/stetho
+versions.stetho = "1.6.0"
+// permission library : https://github.com/ParkSangGwon/TedPermission
+versions.tedpermission = "3.3.0"
+// log library : https://github.com/JakeWharton/timber
+versions.timber = "5.0.1"
+// androidx
+versions.transition = "1.3.0"
+versions.truth = "1.0.1"
+// androidx
+versions.viewPager2 = "1.0.0"
+// androidx
+versions.work = "2.7.0"
+// barcode scanner : https://github.com/journeyapps/zxing-android-embedded
+versions.zxing = "4.3.0"
+ext.versions = versions
+
+def deps = [:]
+
+def activity = [:]
+activity.activity_ktx = "androidx.activity:activity-ktx:$versions.activity"
+deps.activity = activity
+
+deps.annotations = "androidx.annotation:annotation:$versions.annotations"
+
+deps.app_compat = "androidx.appcompat:appcompat:$versions.appcompat"
+
+def arch_core = [:]
+arch_core.runtime = "androidx.arch.core:core-runtime:$versions.arch_core"
+arch_core.testing = "androidx.arch.core:core-testing:$versions.arch_core"
+deps.arch_core = arch_core
+
+def atsl = [:]
+atsl.core = "androidx.test:core:$versions.atsl_core"
+atsl.ext_junit = "androidx.test.ext:junit:$versions.atsl_junit"
+atsl.ext_junit_ktx = "androidx.test.ext:junit-ktx:$versions.atsl_junit"
+atsl.runner = "androidx.test:runner:$versions.atsl_runner"
+deps.atsl = atsl
+
+def aws = [:]
+// reference maven repository https://mvnrepository.com/artifact/software.amazon.awssdk/bom/$versions.aws_bom
+aws.bom = "software.amazon.awssdk:bom:$versions.aws_bom"
+aws.s3 = "software.amazon.awssdk:s3"
+deps.aws = aws
+
+deps.benchmark = "androidx.benchmark:benchmark-junit4:$versions.benchmark"
+deps.benchmark_gradle = "androidx.benchmark:benchmark-gradle-plugin:$versions.benchmark"
+
+deps.cardview = "androidx.cardview:cardview:$versions.cardview"
+
+deps.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+
+deps.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
+
+def coroutines = [:]
+coroutines.android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+coroutines.test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines"
+deps.coroutines = coroutines
+
+def dagger = [:]
+dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
+dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
+dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
+dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger"
+deps.dagger = dagger
+
+deps.dexmaker = "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexmaker"
+
+def espresso = [:]
+espresso.core = "androidx.test.espresso:espresso-core:$versions.espresso"
+espresso.contrib = "androidx.test.espresso:espresso-contrib:$versions.espresso"
+espresso.intents = "androidx.test.espresso:espresso-intents:$versions.espresso"
+deps.espresso = espresso
+
+deps.exifinterface = "androidx.exifinterface:exifinterface:$versions.exifinterface"
+
+def firebase = [:]
+firebase.bom = "com.google.firebase:firebase-bom:$versions.firebase_bom"
+firebase.analytics_ktx = "com.google.firebase:firebase-analytics-ktx"
+firebase.fcm = "com.google.firebase:firebase-messaging-ktx"
+deps.firebase = firebase
+
+def fragment = [:]
+fragment.runtime = "androidx.fragment:fragment:$versions.fragment"
+fragment.runtime_ktx = "androidx.fragment:fragment-ktx:$versions.fragment"
+fragment.testing = "androidx.fragment:fragment-testing:$versions.fragment"
+deps.fragment = fragment
+
+def glide = [:]
+glide.runtime = "com.github.bumptech.glide:glide:$versions.glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+deps.glide = glide
+
+deps.google_services = "com.google.gms:google-services:$versions.google_services"
+
+deps.gson = "com.google.code.gson:gson:$versions.gson"
+
+deps.junit = "junit:junit:$versions.junit"
+
+def kotlin = [:]
+kotlin.stdlib8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin"
+deps.kotlin = kotlin
+
+def libs = [:]
+libs.tedpermissionRx2 = "io.github.ParkSangGwon:tedpermission-rx2:$versions.tedpermission"
+libs.lottie = "com.airbnb.android:lottie:$versions.lottie"
+libs.stetho = "com.facebook.stetho:stetho:$versions.stetho"
+deps.libs = libs
+
+def lifecycle = [:]
+lifecycle.viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
+lifecycle.livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
+lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
+// Annotation processor ; use kapt
+lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+// alternately - if using Java8, use the following instead of lifecycle-compiler ; use implementation
+lifecycle.java8 = "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
+deps.lifecycle = lifecycle
+
+deps.material = "com.google.android.material:material:$versions.material"
+
+def mockito = [:]
+mockito.core = "org.mockito:mockito-core:$versions.mockito"
+mockito.all = "org.mockito:mockito-all:$versions.mockito_all"
+mockito.android = "org.mockito:mockito-android:$versions.mockito_android"
+deps.mockito = mockito
+
+deps.mock_web_server = "com.squareup.okhttp3:mockwebserver:$versions.mockwebserver"
+
+def navigation = [:]
+navigation.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
+navigation.runtime = "androidx.navigation:navigation-runtime:$versions.navigation"
+navigation.runtime_ktx = "androidx.navigation:navigation-runtime-ktx:$versions.navigation"
+navigation.fragment = "androidx.navigation:navigation-fragment:$versions.navigation"
+navigation.fragment_ktx = "androidx.navigation:navigation-fragment-ktx:$versions.navigation"
+navigation.testing = "androidx.navigation:navigation-testing:$versions.navigation"
+navigation.ui = "androidx.navigation:navigation-ui:$versions.navigation"
+navigation.ui_ktx = "androidx.navigation:navigation-ui-ktx:$versions.navigation"
+navigation.safe_args_plugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
+deps.navigation = navigation
+
+def okhttp = [:]
+okhttp.bom = "com.squareup.okhttp3:okhttp-bom:$versions.okhttp_bom"
+okhttp.okhttp = "com.squareup.okhttp3:okhttp"
+okhttp.okhttp_logging_interceptor = "com.squareup.okhttp3:logging-interceptor"
+deps.okhttp = okhttp
+
+deps.paging_runtime = "androidx.paging:paging-runtime:$versions.paging"
+
+deps.recyclerview = "androidx.recyclerview:recyclerview:$versions.recyclerview"
+deps.realm = "io.realm:realm-gradle-plugin:$versions.realm"
+
+def retrofit = [:]
+retrofit.adapter_rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.mock = "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"
+deps.retrofit = retrofit
+
+deps.robolectric = "org.robolectric:robolectric:$versions.robolectric"
+
+def room = [:]
+room.runtime = "androidx.room:room-runtime:$versions.room"
+room.compiler = "androidx.room:room-compiler:$versions.room"
+room.ktx = "androidx.room:room-ktx:$versions.room"
+room.paging = "androidx.room:room-paging:$versions.room"
+room.rxjava2 = "androidx.room:room-rxjava2:$versions.room"
+room.testing = "androidx.room:room-testing:$versions.room"
+deps.room = room
+
+deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
+
+deps.rx_kotlin = "io.reactivex.rxjava2:rxkotlin:$versions.rx2_kotlin"
+
+deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+
+deps.supportV4 = "androidx.legacy:legacy-support-v4:$versions.supportV4"
+
+deps.timber = "com.jakewharton.timber:timber:$versions.timber"
+
+deps.transition = "androidx.transition:transition:$versions.transition"
+
+deps.truth = "com.google.truth:truth:$versions.truth"
+
+deps.viewpager2 = "androidx.viewpager2:viewpager2:$versions.viewpager2"
+
+def work = [:]
+work.runtime = "androidx.work:work-runtime:$versions.work"
+work.testing = "androidx.work:work-testing:$versions.work"
+work.firebase = "androidx.work:work-firebase:$versions.work"
+work.runtime_ktx = "androidx.work:work-runtime-ktx:$versions.work"
+deps.work = work
+
+deps.zxing = "com.journeyapps:zxing-android-embedded:$versions.zxing"
+
+ext.deps = deps
+
+/*************************************
+ * custom settings [
+ **************************************/
+
+def info = getInfoProperties()
+
+/**
+ * basic information of android
+ *
+ * do not remove this section
+ **/
+ext.app_id = info.applicationId
+ext.v_compile_sdk = info.v_compile_sdk as int
+ext.v_build_tool = info.v_build_tool
+ext.v_min_sdk = info.v_min_sdk as int
+ext.v_target_sdk = info.v_target_sdk as int
+ext.vCode = info.vCode as int
+ext.apk_header = info.apkHeader
+ext.v_name = generateVersionName(info.major as int, info.minor as int, info.patch as int)
+ext.apk_name = generateApkName(info.major as int, info.minor as int, info.patch as int, vCode)
+
+/**
+ * server api information
+ *
+ * if need, uncomment this section
+ **/
+ext.protocol = info.protocol
+ext.base_url = info.baseUrl
+ext.port = info.port
+ext.firebaseChannelId = info.firebaseChannelId
+
+/**
+ * aws bucket information
+ *
+ * if need, uncomment this section
+ **/
+ext.aws_access_key = info.aws_access_key
+ext.aws_secret_key = info.aws_secret_key
+ext.aws_bucket_name = info.aws_bucket_name
+
+/*************************************
+ * custom settings ]
+ **************************************/
+
+def addRepos(RepositoryHandler handler) {
+    handler.google()
+    handler.mavenCentral()
+    handler.maven { url "https://jitpack.io" }
+}
+
+ext.addRepos = this.&addRepos
+
+def getInfoProperties() {
+    def props = new Properties()
+
+    def file = file("info/info.properties")
+    if (!file.exists()) {
+        return props
+    }
+
+    file.withInputStream { stream -> props.load(stream) }
+
+    props.put(
+            "versionName",
+            generateVersionName(props.major as int, props.minor as int, props.patch as int)
+    )
+    props.put(
+            "apkName",
+            generateApkName(props.major as int, props.minor as int, props.patch as int, props.vCode as int)
+    )
+
+    return props
+}
+
+static String generateVersionName(int major, int minor, int patch) {
+    return String.format("v%d.%d.%d", major, minor, patch)
+}
+
+static String generateApkName(int major, int minor, int patch, int vCode) {
+    return String.format("v%d.%d.%d_%d_%s", major, minor, patch, vCode, generateVersionDate())
+}
+
+static String generateVersionDate() {
+    def cal = GregorianCalendar.getInstance()
+    int korOffset = TimeZone.getTimeZone("Asia/Seoul").rawOffset
+    int currentOffset = cal.timeZone.rawOffset
+
+    cal.add(Calendar.MILLISECOND, korOffset - currentOffset)
+
+    return String.format("%02d%02d%02d.%02d%01d",
+            cal.get(Calendar.YEAR) % 2000,
+            cal.get(Calendar.MONTH) + 1,
+            cal.get(Calendar.DATE),
+            cal.get(Calendar.HOUR_OF_DAY),
+            (int) (cal.get(Calendar.MINUTE) / 10)
+    )
+}

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.osl.base.project.main.views.ruler.RulerViewModel" />
+
+        <variable
+            name="rulerLayoutManager"
+            type="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <variable
+            name="rulerAdapter"
+            type="com.osl.base.project.main.views.ruler.adapter.RulerAdapter" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/vCenterBar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvWeightValue"
+                string="@{viewModel.weightValue}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="0.0" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvWeightUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="kg" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRulerWeight"
+            adapter="@{rulerAdapter}"
+            items="@{viewModel.ruleItems}"
+            layoutManager="@{rulerLayoutManager}"
+            android:layout_width="0dp"
+            android:layout_height="96dp"
+            android:background="@android:color/white"
+            android:clipChildren="false"
+            android:foreground="@drawable/top_inner_shadow_6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:adapter="com.osl.swrnd.aos.common.components.ruler.RulerAdapter"
+            tools:itemCount="440"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_rule"
+            tools:orientation="horizontal" />
+
+        <View
+            android:id="@+id/vCenterBar"
+            android:layout_width="2dp"
+            android:layout_height="200dp"
+            app:layout_constraintLeft_toLeftOf="@+id/rvRulerWeight"
+            app:layout_constraintRight_toRightOf="@+id/rvRulerWeight"
+            app:layout_constraintBottom_toBottomOf="@+id/rvRulerWeight"
+            android:background="@color/colorAccent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

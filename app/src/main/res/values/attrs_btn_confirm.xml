@@ -1,0 +1,8 @@
+<resources>
+  <declare-styleable name="BtnConfirm">
+    <attr name="normalImgSrc" format="reference" />
+    <attr name="clickedTextDismissDuration" format="integer" />
+    <attr name="loadingLottieSrc" format="reference" />
+    <attr name="loadingDuration" format="integer" />
+  </declare-styleable>
+</resources>

@@ -1,0 +1,31 @@
+{
+  "pageToken": "",
+  "records": [
+    {
+      "metadata": {
+        "clientRecordId": null,
+        "clientRecordVersion": 0,
+        "dataOrigin": {
+          "packageName": "com.sec.android.app.shealth"
+        },
+        "device": {
+          "manufacturer": null,
+          "model": null,
+          "type": null
+        },
+        "id": "2626f35e-3061-4dd0-a773-abe1edd8fe6f",
+        "lastModifiedTime": "2023-04-11T04:21:41.719Z"
+      },
+      "time": "2023-04-11T04:21:30.690Z",
+      "weight": {
+        "type": "KILOGRAMS",
+        "value": 67.4000015258789
+      },
+      "zoneOffset": "+09:00"
+    }
+  ]
+}
+<Type>
+lastModifiedTime: Instant
+time: Instant
+zoneOffset: ZoneOffset?

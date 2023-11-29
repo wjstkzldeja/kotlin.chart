@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="SpUsage">
+
+    <data>
+
+        <variable
+            name="isFifth"
+            type="Boolean" />
+
+        <variable
+            name="weightValue"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="16dp"
+        android:layout_height="match_parent"
+        android:clipChildren="false">
+
+        <View
+            android:id="@+id/vLine"
+            viewHeightDp="@{isFifth ? 60 : 40}"
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            android:background="#979797"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toTopOf="@+id/vLine"
+            app:layout_constraintLeft_toLeftOf="@id/vLine"
+            app:layout_constraintRight_toRightOf="@id/vLine">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                string="@{weightValue}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:maxLines="1"
+                android:textColor="#535250"
+                android:textFontWeight="400"
+                android:textSize="16dp"
+                android:textStyle="normal"
+                tools:background="@android:color/holo_red_dark"
+                tools:text="2.5" />
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,67 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk v_compile_sdk
+
+    defaultConfig {
+        minSdk v_min_sdk
+        targetSdk v_target_sdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+
+    implementation deps.core_ktx
+    implementation deps.app_compat
+    implementation deps.material
+    testImplementation deps.junit
+    androidTestImplementation deps.atsl.ext_junit
+    androidTestImplementation deps.espresso.core
+
+    api deps.navigation.core_ktx
+    api deps.navigation.runtime_ktx
+    api deps.navigation.fragment_ktx
+    api deps.navigation.ui_ktx
+
+    // glide
+    implementation deps.glide.runtime
+    annotationProcessor deps.glide.compiler
+
+    // androidx
+    api deps.recyclerview
+    api deps.constraint_layout
+
+    // rx
+    api deps.rx_kotlin
+    api deps.rx_android
+    api deps.rxjava2
+
+    api project(path: ':logger')
+}

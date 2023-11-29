@@ -1,0 +1,370 @@
+{
+  "user": {
+    "reference_id": null,
+    "user_id": "0fb3d0b5-43e1-4956-93ae-f44ad83efaad",
+    "provider": "FREESTYLELIBRESDK",
+    "last_webhook_update": "2023-04-05T09:21:43.756883+00:00",
+    "scopes": null
+  },
+  "type": "body",
+  "data": [
+    {
+      "temperature_data": {
+        "skin_temperature_samples": [],
+        "body_temperature_samples": [],
+        "ambient_temperature_samples": []
+      },
+      "metadata": {
+        "start_time": "2023-04-05T00:00:00.000000+09:00",
+        "end_time": "2023-04-06T00:00:00.000000+09:00"
+      },
+      "glucose_data": {
+        "day_avg_blood_glucose_mg_per_dL": null,
+        "blood_glucose_samples": [
+          {
+            "blood_glucose_mg_per_dL": 79.9,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T10:03:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 79.10000000000001,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T10:18:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 79.9,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T10:33:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 80.4,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T10:48:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 81.4,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T11:03:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 82.2,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T11:18:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 83.2,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T11:33:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 86.9,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T11:48:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 111.2,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T12:03:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 128.9,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T12:18:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 134,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T12:33:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 135.8,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T12:48:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 137.5,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T13:03:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 132.9,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T13:18:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 121.4,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T13:33:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 115.60000000000001,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T13:48:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 102.7,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T14:03:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 100.9,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T14:18:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 100.5,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T14:33:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 98.10000000000001,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T14:48:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 90.30000000000001,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T15:03:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 91.4,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T15:18:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 90.9,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T15:33:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 89.7,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T15:48:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 89.7,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T16:03:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 89.80000000000001,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T16:18:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 92,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T16:33:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 102,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T16:48:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 126.2,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:03:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 123.2,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:18:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 105.9,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:33:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 93.9,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:48:00.000000+09:00"
+          }
+        ],
+        "detailed_blood_glucose_samples": [
+          {
+            "blood_glucose_mg_per_dL": 90,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T18:03:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 90.7,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T18:02:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 91.10000000000001,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T18:01:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 91.80000000000001,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T18:00:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 91.9,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:59:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 92.10000000000001,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:58:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 91.7,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:57:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 91.9,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:56:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 92.60000000000001,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:55:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 93.5,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:54:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 93.80000000000001,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:53:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 94.60000000000001,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:52:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 95.30000000000001,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:51:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 95.9,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:50:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 96.4,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:49:00.000000+09:00"
+          },
+          {
+            "blood_glucose_mg_per_dL": 97,
+            "glucose_level_flag": 0,
+            "trend_arrow": 0,
+            "timestamp": "2023-04-05T17:48:00.000000+09:00"
+          }
+        ]
+      },
+      "device_data": {
+        "manufacturer": "Abbott",
+        "activation_timestamp": "2023-03-22T15:20:00.000000+09:00",
+        "serial_number": "0M000MD5T4H",
+        "hardware_version": "1-New",
+        "sensor_state": null,
+        "name": "FreeStyleLibre",
+        "other_devices": [],
+        "software_version": null
+      },
+      "heart_data": {
+        "heart_rate_data": {
+          "summary": {
+            "max_hr_bpm": null,
+            "avg_hr_bpm": null,
+            "avg_hrv_rmssd": null,
+            "user_max_hr_bpm": null,
+            "avg_hrv_sdnn": null,
+            "hr_zone_data": [],
+            "min_hr_bpm": null,
+            "resting_hr_bpm": null
+          },
+          "detailed": {
+            "hr_samples": [],
+            "hrv_samples_rmssd": [],
+            "hrv_samples_sdnn": []
+          }
+        },
+        "ecg_signal": [],
+        "afib_classification_samples": [],
+        "pulse_wave_velocity_samples": []
+      },
+      "blood_pressure_data": {
+        "blood_pressure_samples": []
+      },
+      "hydration_data": {
+        "hydration_amount_samples": [],
+        "day_total_water_consumption_ml": null
+      },
+      "measurements_data": {
+        "measurements": []
+      },
+      "oxygen_data": {
+        "vo2max_ml_per_min_per_kg": null,
+        "saturation_samples": [],
+        "vo2_samples": [],
+        "avg_saturation_percentage": null
+      },
+      "ketone_data": {
+        "ketone_samples": []
+      }
+    }
+  ],
+  "version": "2022-03-16"
+}

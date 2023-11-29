@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.osl.base.project.main.views.login.TermsOfServiceBottomSheetViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_bottomsheet"
+        tools:context=".views.login.TermsOfServiceBottomSheetFragment">
+
+        <TextView
+            android:id="@+id/termsOfBottomTitle"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:text="@string/termsOfService_bottomsheet_title"
+            android:layout_marginTop="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/termsOfBottomSubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:text="@string/termsOfService_bottomsheet_subtitle"
+            app:layout_constraintStart_toStartOf="@+id/termsOfBottomTitle"
+            app:layout_constraintTop_toBottomOf="@+id/termsOfBottomTitle" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/termsOfBottomAllCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/termsOfBottomTitle"
+            app:layout_constraintTop_toBottomOf="@+id/termsOfBottomSubTitle"
+            />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/termsOfBottomSubmitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.onSubmitClick()}"
+            android:text="@string/termsOfService_bottomsheet_submit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            /><!--app:layout_constraintTop_toBottomOf="@+id/termsOfBottomAllCheck"-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

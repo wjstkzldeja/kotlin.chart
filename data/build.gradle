@@ -1,0 +1,97 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
+
+android {
+  compileSdkVersion v_compile_sdk
+
+
+  defaultConfig {
+    minSdkVersion v_min_sdk
+    targetSdkVersion v_target_sdk
+    versionCode vCode
+    versionName v_name
+
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    consumerProguardFiles 'consumer-rules.pro'
+
+    /**
+     * remote server api information
+     **/
+    resValue "string", "port", port
+    resValue "string", "protocol", protocol
+    resValue "string", "base_url", base_url
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_11
+    targetCompatibility JavaVersion.VERSION_11
+  }
+
+  kotlinOptions {
+    jvmTarget = JavaVersion.VERSION_11
+  }
+
+  sourceSets {
+    main.res.srcDirs = files(["../info/data/res"])
+  }
+}
+
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+  //unit test
+  androidTestImplementation deps.atsl.ext_junit
+  androidTestImplementation deps.atsl.runner
+  androidTestImplementation deps.espresso.core
+
+  testImplementation deps.junit
+  testImplementation deps.atsl.core
+  testImplementation deps.robolectric
+  testImplementation deps.mockito.core
+
+  //app
+  implementation deps.app_compat
+
+  //aac
+  implementation deps.room.runtime
+  kapt deps.room.compiler
+  implementation deps.room.ktx
+
+  //rx
+  implementation deps.rx_kotlin
+  implementation deps.rx_android
+  implementation deps.rxjava2
+
+  //network
+  implementation deps.retrofit.runtime
+  implementation deps.retrofit.adapter_rxjava2
+  implementation deps.retrofit.gson
+  implementation platform(deps.okhttp.bom)
+  implementation deps.okhttp.okhttp
+  implementation deps.okhttp.okhttp_logging_interceptor
+  implementation deps.gson
+
+  //stomp
+  implementation "com.github.NaikSoftware:StompProtocolAndroid:1.6.6"
+//  implementation('com.github.NaikSoftware:StompProtocolAndroid:1.6.6') {
+//    exclude group: "com.android.support"
+//  }
+
+  //kotlin
+  implementation deps.kotlin.stdlib8
+
+  //ext
+  implementation project(path: ':domain')
+  implementation project(path: ':entity')
+  implementation project(path: ':logger')
+
+}
