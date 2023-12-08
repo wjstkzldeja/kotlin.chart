@@ -1,4 +1,4 @@
-package com.osl.base.project.main.views.chart.linenotscroll
+package com.osl.base.project.main.views.chart.bar
 
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.LiveData
@@ -7,7 +7,7 @@ import com.osl.base.project.main.utils.chart.ChartEngineUtils
 import com.osl.base.project.osl.utils.Event
 import com.osl.base.project.osl.views.OslViewModel
 
-class ChartLineNotScrollViewModel : OslViewModel() {
+class ChartBarAttrsViewModel : OslViewModel() {
     var xAxisList = arrayListOf<Long>()
     var yAxisList = arrayListOf<Int>()
     var xValueList = arrayListOf<Long>()
@@ -18,23 +18,23 @@ class ChartLineNotScrollViewModel : OslViewModel() {
     var yMaxValue = 0
     var rangeStep = 50
 
-    fun initCreateLineChartData() {
+    fun initCreateBarChartData() {
         /**x축 그릴 갯수
          * axis/base/chart 사용*/
-        xMaxCount = 24
+        xMaxCount = 7
         /**y축 최소값
          * chart 사용*/
         yMinValue = 0
         /**y축 최대값
          * chart 사용*/
-        yMaxValue = 300
+        yMaxValue = 2000
         /**y축 값 간격
          * y리스트 만들때 사용*/
-        rangeStep = 50
+        rangeStep = 500
 
         /**Axis list
          * axis 사용*/
-        xAxisList = ChartEngineUtils().createXAxisList()
+        xAxisList = ChartEngineUtils().createBarChartXAxisList()
         yAxisList = ChartEngineUtils().createYAxisList(yMinValue, yMaxValue, rangeStep)
 
         /**y축 그릴 갯수
@@ -43,7 +43,7 @@ class ChartLineNotScrollViewModel : OslViewModel() {
 
         /**line chart list
          * chart 사용*/
-        xValueList = ChartEngineUtils().createLineChartXValueList()
-        yValueList = ChartEngineUtils().createLineChartYValueList(0)//0 + yMinValue 테스트용
+        xValueList = ChartEngineUtils().createBarChartXValueList()
+        yValueList = ChartEngineUtils().createBarChartYValueList(yMinValue)//0 + yMinValue 테스트용
     }
 }

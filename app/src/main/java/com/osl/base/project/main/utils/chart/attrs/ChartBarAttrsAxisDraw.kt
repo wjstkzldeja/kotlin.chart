@@ -1,4 +1,4 @@
-package com.osl.base.project.main.utils.chart.bar
+package com.osl.base.project.main.utils.chart.attrs
 
 import android.content.Context
 import android.graphics.*
@@ -6,12 +6,13 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.osl.base.project.main.R
+import com.osl.base.project.main.utils.chart.ChartEngineUtils
 import com.osl.base.project.main.utils.date.ChartDateUtils
 import com.osl.base.project.main.utils.dpiToPixels
 import timber.log.Timber.Forest.d
 
 
-class ChartBarAxisDraw(context: Context?, attrs: AttributeSet?) :
+class ChartBarAttrsAxisDraw(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
     private var canvasWidth: Float = 0.0f
     private var canvasHeight: Float = 0.0f
@@ -39,10 +40,31 @@ class ChartBarAxisDraw(context: Context?, attrs: AttributeSet?) :
     /** 텍스트 높이 값 */
     private var yAxisBoundsHeight = 0
 
-    private val xTextColor = Color.parseColor("#000000")
-    private val yTextColor = Color.parseColor("#66000000")
+    private var xTextColor: Int = 0
+    private var yTextColor: Int = 0
 
     init {
+        /** attrs -> xml 에서 전달된 값으로 차트 구현*/
+        context?.theme?.obtainStyledAttributes(attrs, R.styleable.ChartAttr, 0, 0)?.apply {
+            /** Y 최소 값*/
+            val yMinValue = getInt(R.styleable.ChartAttr_yMinValue, 0)
+            /** Y 최대 값*/
+            val yMaxValue = getInt(R.styleable.ChartAttr_yMaxValue, 0)
+            /** Y 축 간격*/
+            val rangeStep = getInt(R.styleable.ChartAttr_rangeStep, 0)
+            /** X 정적 리스트*/
+            xAxisList = ChartEngineUtils().createBarChartXAxisList()
+            /** Y 정적 리스트*/
+            yAxisList = ChartEngineUtils().createYAxisList(yMinValue, yMaxValue, rangeStep)
+            /** X 그려질 최대 갯수*/
+            xAxisMaxCount = getInt(R.styleable.ChartAttr_xMaxCount, 0)
+            /** Y 그려질 최대 갯수(동적 구현 : 리스트 사이즈 - 1)*/
+            yAxisMaxCount = (yAxisList.size - 1)
+
+            xTextColor = getInt(R.styleable.ChartAttr_xTextColor, Color.parseColor("#000000"))
+            yTextColor = getInt(R.styleable.ChartAttr_yTextColor, Color.parseColor("#66000000"))
+
+        }
         xAxisTextPaint = Paint().apply {
             color = xTextColor
             textSize = dpiToPixels(context!!, 12)
@@ -97,7 +119,7 @@ class ChartBarAxisDraw(context: Context?, attrs: AttributeSet?) :
      * */
     private fun drawXAxis(canvas: Canvas) {
         /** 첫번째 아이템 leftMargin, 왼쪽 여*/
-        val leftMargin = dpiToPixels(context, 71+10)
+        val leftMargin = dpiToPixels(context, 71 + 10)
 
         /** 아이템 전체 bottomMargin, 하단 여백*/
         val bottomMargin = dpiToPixels(context, 3)

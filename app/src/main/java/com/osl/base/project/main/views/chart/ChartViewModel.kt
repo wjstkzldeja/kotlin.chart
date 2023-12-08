@@ -10,6 +10,9 @@ class ChartViewModel : OslViewModel() {
     private val _onBarChart = MutableLiveData<Event<Unit>>()
     val onBarChart: LiveData<Event<Unit>> get() = _onBarChart
 
+    private val _onBarAttrsChart = MutableLiveData<Event<Unit>>()
+    val onBarAttrsChart: LiveData<Event<Unit>> get() = _onBarAttrsChart
+
     private val _onPointChart = MutableLiveData<Event<Unit>>()
     val onPointChart: LiveData<Event<Unit>> get() = _onPointChart
 
@@ -21,6 +24,10 @@ class ChartViewModel : OslViewModel() {
 
     fun onBarChart() {
         _onBarChart.value = Event(Unit)
+    }
+
+    fun onBarAttrsChart() {
+        _onBarAttrsChart.value = Event(Unit)
     }
 
     fun onPointChart() {

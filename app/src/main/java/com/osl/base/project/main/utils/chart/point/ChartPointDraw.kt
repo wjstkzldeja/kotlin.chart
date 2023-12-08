@@ -23,7 +23,7 @@ class ChartPointDraw(context: Context?, attrs: AttributeSet?) :
 
     /** list*/
     var xValueList: ArrayList<Long> = arrayListOf()
-    var yValueList: ArrayList<Int?> = arrayListOf()
+    var yValueList: ArrayList<Float?> = arrayListOf()
 
     var xPointList: ArrayList<Float> = arrayListOf()
     var yPointList: ArrayList<Float> = arrayListOf()
@@ -107,19 +107,17 @@ class ChartPointDraw(context: Context?, attrs: AttributeSet?) :
         val leftMargin = dpiToPixels(context, 80)
 
         xAxisInterval = (canvasWidth - leftMargin) / xMaxCount.toFloat()
-
-        /** draw lin 미리 그리기*/
-        preCalculated()
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        preCalculated()
         drawLineBg(canvas)
         drawLine(canvas)
         drawRing(canvas)
     }
 
-    private fun preCalculated() {
+    fun preCalculated() {
         /** 첫번째 아이템 leftMargin, 왼쪽 여백*/
         val leftMargin = dpiToPixels(context, 71 + 10)
         /**
@@ -128,12 +126,14 @@ class ChartPointDraw(context: Context?, attrs: AttributeSet?) :
          * */
         d("PointChart curveLinePreDraw xValueList : ${xValueList}")
         d("PointChart curveLinePreDraw yValueList : ${yValueList}")
+        val xPointTemp = ArrayList<Float>()
+        val yPointTemp = ArrayList<Float>()
         xValueList.forEachIndexed { index, value ->
             val xPercent = xAxisInterval * index + leftMargin
             val xValuePoint =
                 xAxisInterval * index + leftMargin//xPercent * canvasWidth + leftMargin
             d("PointChart curveLinePreDraw x : index : ${index} ,xPercent : ${xPercent}, xValuePoint : ${xValuePoint}")
-            xPointList.add(xValuePoint)
+            xPointTemp.add(xValuePoint)
         }
 
 
@@ -171,8 +171,10 @@ class ChartPointDraw(context: Context?, attrs: AttributeSet?) :
                 (((yValueNotNull ?: yMinValue).toFloat() - yMinValue)) / (yMaxValue - yMinValue)
             val yValuePoint = canvasHeight - (yPercent * canvasHeight) + (topMargin - bottomMargin)
             d("PointChart curveLinePreDraw y : index : ${index} ,yPercent : ${yPercent}, yValuePoint : ${yValuePoint}")
-            yPointList.add(yValuePoint)
+            yPointTemp.add(yValuePoint)
         }
+        xPointList = xPointTemp
+        yPointList = yPointTemp
         d("PointChart curveLinePreDraw point : xPointList : ${xPointList}")
         d("PointChart curveLinePreDraw point : yPointList : ${yPointList}")
     }
@@ -199,14 +201,16 @@ class ChartPointDraw(context: Context?, attrs: AttributeSet?) :
     private fun drawValueText(
         canvas: Canvas,
         index: Int,
-        yValue: Int?,
+        yValue: Float?,
         xValuePoint: Float,
         yValuePoint: Float
     ) {
         /** 아이템 전체 bottomMargin, 하단 여백*/
         val bottomMargin = dpiToPixels(context, 10)
 
-        if ((index + 1) == ChartDateUtils().currentDayOfWeek()) {
+        val nonNullList = yValueList.filterNotNull()
+        val max: Float? = nonNullList.maxOrNull()
+        if (yValue == max) {
             textPaint.color = textColorSel
         } else {
             textPaint.color = textColorNone
@@ -257,6 +261,7 @@ class ChartPointDraw(context: Context?, attrs: AttributeSet?) :
 
     /** 이거 때문에 xml 안나옴*/
     private fun drawLineBg(canvas: Canvas) {
+        if (xPointList.isEmpty()) return
         val bottomMargin = dpiToPixels(context, 20)
 
         /** 차트 그라데이션 배경

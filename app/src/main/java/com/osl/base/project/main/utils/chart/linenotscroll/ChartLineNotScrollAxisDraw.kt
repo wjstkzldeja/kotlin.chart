@@ -15,6 +15,8 @@ class ChartLineNotScrollAxisDraw(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
     private var translateMatrix: Matrix
     private var scrollByX: Float = 0f
+
+    /** 캔버스 사이즈 공용으로 사용하기 위해*/
     private var canvasWidth: Float = 0.0f
     private var canvasHeight: Float = 0.0f
 
@@ -80,7 +82,7 @@ class ChartLineNotScrollAxisDraw(context: Context?, attrs: AttributeSet?) :
         canvasHeight = height.toFloat() - viewHeightMargin
 
         /** 아이템 전체 leftMargin, 아이템 간에 간격 조정됨 */
-        val leftMargin = dpiToPixels(context, 35)
+        val leftMargin = dpiToPixels(context, 90)
 
         /** 간격(마진값) 구하는 함수, 넓이 기준 x갯수로 간격 계산
          * xInterval = width-라인차트와의 마진값 / xAxisMaxCount
@@ -126,15 +128,27 @@ class ChartLineNotScrollAxisDraw(context: Context?, attrs: AttributeSet?) :
          * */
         xAxisList.forEachIndexed { index, xValue ->
             val xValuePoint = xAxisInterval * index + leftMargin
-//            d(
-//                "TextChart drawXAxis : index : ${index}, xValuePoint : ${xValuePoint}"
-//            )
-            canvas.drawText(
-                ChartDateUtils().chartGetTimestamp(xValue),
-                xValuePoint,
-                (canvasHeight + dpiToPixels(context, 40)) - bottomMargin,
-                xAxisTextPaint
-            )
+            /*d(
+                "TextChart drawXAxis : index : ${index}, xValuePoint : ${xValuePoint}"
+            )*/
+
+            if (index == 0 || index == 6 || index == 12 || index == 18 || index == 24) {
+                if (xAxisList.lastIndex == index) {
+                    canvas.drawText(
+                        "24pm",
+                        xValuePoint,
+                        (canvasHeight + dpiToPixels(context, 40)) - bottomMargin,
+                        xAxisTextPaint
+                    )
+                } else {
+                    canvas.drawText(
+                        ChartDateUtils().chartGetTimestamp(xValue).lowercase(),
+                        xValuePoint,
+                        (canvasHeight + dpiToPixels(context, 40)) - bottomMargin,
+                        xAxisTextPaint
+                    )
+                }
+            }
         }
     }
 

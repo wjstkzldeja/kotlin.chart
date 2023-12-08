@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ChartAttr">
+        <!--x 최대 갯수-->
+        <attr name="xMaxCount" format="reference|integer" />
+        <!--y 최대 갯수-->
+        <attr name="yMaxCount" format="reference|integer" />
+        <!--y 최소 값-->
+        <attr name="yMinValue" format="reference|integer" />
+        <!--y 최대 값-->
+        <attr name="yMaxValue" format="reference|integer" />
+        <!--값의 간격-->
+        <attr name="rangeStep" format="reference|integer" />
+        <attr name="xTextColor" format="reference|color"/>
+        <attr name="yTextColor" format="reference|color"/>
+    </declare-styleable>
+</resources>

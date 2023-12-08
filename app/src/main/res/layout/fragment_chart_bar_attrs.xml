@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.osl.base.project.main.views.chart.point.ChartPointViewModel" />
+            type="com.osl.base.project.main.views.chart.bar.ChartBarAttrsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,13 +22,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textTest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="asdasdasdasd"/>
-                    <!--point chart-->
+                    <!--bar chart-->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -37,22 +31,36 @@
                         android:background="@color/white"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <com.osl.base.project.main.utils.chart.point.ChartPointAxisDraw
-                            android:id="@+id/chartPointAxis"
+                        <com.osl.base.project.main.utils.chart.attrs.ChartBarAttrsAxisDraw
+                            android:id="@+id/chartBarAxis"
                             android:layout_width="match_parent"
                             android:layout_height="370dp"
+                            app:xMaxCount="7"
+                            app:yMinValue="0"
+                            app:yMaxValue="2000"
+                            app:rangeStep="500"
+                            app:xTextColor="@color/colorAccent"
+                            app:yTextColor="@color/colorPrimary"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <com.osl.base.project.main.utils.chart.point.ChartPointBaseDraw
-                            android:id="@+id/chartPointBase"
+                        <com.osl.base.project.main.utils.chart.attrs.ChartBarAttrsBaseDraw
+                            android:id="@+id/chartBarBase"
                             android:layout_width="match_parent"
                             android:layout_height="370dp"
+                            app:xMaxCount="7"
+                            app:yMinValue="0"
+                            app:yMaxValue="2000"
+                            app:rangeStep="500"
                             app:layout_constraintBottom_toBottomOf="parent" />
 
-                        <com.osl.base.project.main.utils.chart.point.ChartPointDraw
-                            android:id="@+id/chartPoint"
+                        <com.osl.base.project.main.utils.chart.attrs.ChartBarAttrsDraw
+                            android:id="@+id/chartBar"
                             android:layout_width="match_parent"
                             android:layout_height="370dp"
+                            app:xMaxCount="7"
+                            app:yMinValue="0"
+                            app:yMaxValue="2000"
+                            app:rangeStep="500"
                             app:layout_constraintBottom_toBottomOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

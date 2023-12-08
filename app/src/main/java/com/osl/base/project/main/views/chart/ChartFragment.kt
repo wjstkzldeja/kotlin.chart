@@ -24,6 +24,9 @@ class ChartFragment : OslFragment<FragmentChartBinding, ChartViewModel>() {
         viewModel.onBarChart.observeEvent {
             ChartFragmentDirections.actionChartFragmentToChartBarFragment().navigate()
         }
+        viewModel.onBarAttrsChart.observeEvent {
+            ChartFragmentDirections.actionChartFragmentToChartBarAttrsFragment().navigate()
+        }
 
         viewModel.onPointChart.observeEvent {
             ChartFragmentDirections.actionChartFragmentToChartPointFragment().navigate()

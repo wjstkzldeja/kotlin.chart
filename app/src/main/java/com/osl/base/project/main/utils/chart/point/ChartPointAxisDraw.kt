@@ -13,6 +13,7 @@ import timber.log.Timber.Forest.d
 
 class ChartPointAxisDraw(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
+    /** 캔버스 사이즈 공용으로 사용하기 위해*/
     private var canvasWidth: Float = 0.0f
     private var canvasHeight: Float = 0.0f
 

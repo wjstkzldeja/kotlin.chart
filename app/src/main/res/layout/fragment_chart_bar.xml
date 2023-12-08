@@ -11,51 +11,52 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bg_070318">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textTest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="asdasdasdasd" />
+                <!--bar chart-->
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/textTest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="asdasdasdasd"/>
-                    <!--bar chart-->
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <com.osl.base.project.main.utils.chart.bar.ChartBarAxisDraw
+                        android:id="@+id/chartBarAxis"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:visibility="visible"
-                        android:background="@color/colorPrimary"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:layout_height="370dp"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <com.osl.base.project.main.utils.chart.bar.ChartBarAxisDraw
-                            android:id="@+id/chartBarAxis"
-                            android:layout_width="match_parent"
-                            android:layout_height="370dp"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <com.osl.base.project.main.utils.chart.bar.ChartBarBaseDraw
+                        android:id="@+id/chartBarBase"
+                        android:layout_width="match_parent"
+                        android:layout_height="370dp"
+                        app:layout_constraintBottom_toBottomOf="parent" />
 
-                        <com.osl.base.project.main.utils.chart.bar.ChartBarBaseDraw
-                            android:id="@+id/chartBarBase"
-                            android:layout_width="match_parent"
-                            android:layout_height="370dp"
-                            app:layout_constraintBottom_toBottomOf="parent" />
+                    <com.osl.base.project.main.utils.chart.bar.ChartBarDraw
+                        android:id="@+id/chartBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="370dp"
+                        app:layout_constraintBottom_toBottomOf="parent" />
 
-                        <com.osl.base.project.main.utils.chart.bar.ChartBarDraw
-                            android:id="@+id/chartBar"
-                            android:layout_width="match_parent"
-                            android:layout_height="370dp"
-                            app:layout_constraintBottom_toBottomOf="parent" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.core.widget.NestedScrollView>
 

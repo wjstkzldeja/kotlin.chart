@@ -26,7 +26,7 @@ class ChartEngineUtils {
 /*        for (hourIndex in 0..23) {
             xValueHourList.add(ChartDateUtils().getToHourZeroSecMinDateTwo(time = null, hour = hourIndex, DateDiff = -1))
         }*/
-        for (hourIndex in 0..23) {
+        for (hourIndex in 0..24) {
             xValueHourList.add(ChartDateUtils().getToHourZeroSecMinDateTwo(time = null, hour = hourIndex, DateDiff = 0))
         }
         d("MockData createXAxisList xValueHourList : ${xValueHourList}")
@@ -156,12 +156,20 @@ class ChartEngineUtils {
     }
 
     /**y축 value 테스트용*/
-    fun createPointChartYValueList(): ArrayList<Int?> {
+    fun createPointChartYValueList(): ArrayList<Float?> {
         /** xValue에 맞춰 일~토 리스트*/
-        val yValues = arrayListOf<Int?>(
-            58, 59, null, null, 60, null, 58
+        val yValues = arrayListOf<Float?>(
+            58f, 59f, null, null, 60f, null, 58f
         )
         d("MockData createYValueList yValues : ${yValues}")
         return yValues
+    }
+
+    /** 글자 자르기*/
+    fun ellipsizeText(originalText: String, maxLength: Int): String {
+        if (originalText.length <= maxLength) {
+            return originalText
+        }
+        return originalText.substring(0, maxLength) + "..."
     }
 }

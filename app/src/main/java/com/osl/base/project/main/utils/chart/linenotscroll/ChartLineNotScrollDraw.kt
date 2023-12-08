@@ -3,26 +3,22 @@ package com.osl.base.project.main.utils.chart.linenotscroll
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
-import android.widget.OverScroller
-import androidx.core.view.ViewCompat
+import androidx.core.content.res.ResourcesCompat
 import com.osl.base.project.main.R
 import com.osl.base.project.main.utils.chart.ChartEngineUtils
+import com.osl.base.project.main.utils.chart.WfInfoVo
 import com.osl.base.project.main.utils.date.ChartDateUtils
 import com.osl.base.project.main.utils.dpiToPixels
-import com.osl.base.project.main.views.chart.ChartViewModel
 import timber.log.Timber.Forest.d
+import java.lang.Math.abs
 
 
 class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
     private var touchIndex: Int = 0
-    private lateinit var mScroller: OverScroller
-    private var mGestureDetector: GestureDetector? = null
     private var translateMatrix: Matrix
-    private var scrollByX: Float = 0f
     private var canvasWidth: Float = 0.0f
     private var canvasHeight: Float = 0.0f
 
@@ -39,7 +35,10 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
     private var timeTextPaint: Paint = Paint()
 
     /**images*/
-    private var testImage: Bitmap? = null
+    private var dietNor: Bitmap? = null
+    private var dietSel: Bitmap? = null
+    private var exerciseNor: Bitmap? = null
+    private var exerciseSel: Bitmap? = null
 
     /** list*/
     var xValueList: ArrayList<Long> = arrayListOf()
@@ -48,8 +47,18 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
     var yPointList: ArrayList<Float> = arrayListOf()
 
     /** 음식, 운동 리스트 */
-    var xFoodHealthValueList: ArrayList<Long> =
-        arrayListOf(1682434800877, 1682438400877)
+    var xFoodHealthValueList: ArrayList<WfInfoVo> =
+        arrayListOf(
+            WfInfoVo("음식", "정보_음식", "타입_음식"),
+            WfInfoVo("운동", "정보_운동", "타입_운동")
+        )
+    var xFoodHealthTimeList: ArrayList<Long> = arrayListOf(
+        ChartDateUtils().getToHourZeroSecMinDateTwo(
+            time = null,
+            hour = 1,
+            DateDiff = 0
+        ), ChartDateUtils().getToHourZeroSecMinDateTwo(time = null, hour = 2, DateDiff = 0)
+    )
     var xFoodHealthPointList: ArrayList<Float> = arrayListOf()
     var yFoodHealthPointList: ArrayList<Float> = arrayListOf()
 
@@ -76,9 +85,6 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
     var yMinValue = 0
     var yMaxValue = 0//100
 
-    /** 마지막 누른 화면 값*/
-    var lastDownX = 0f
-
     /** 타겟존 좌표*/
     private var targetZoneLowPoint: Float = 0f
     private var targetZoneHighPoint: Float = 0f
@@ -88,7 +94,7 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
 
     private val highLineColor = Color.parseColor("#AB3452")
     private val lowLineColor = Color.parseColor("#5480F7")
-    private val targetZoneLineColor = Color.parseColor("#0D5480F7")
+    private val targetZoneLineColor = Color.parseColor("#4D5480F7")
     private val textColor = Color.parseColor("#616161")
 
     init {
@@ -100,7 +106,12 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
             isAntiAlias = true
         }
 
-        testImage = BitmapFactory.decodeResource(context?.resources, R.drawable.icon_discover)
+        dietNor = BitmapFactory.decodeResource(context?.resources, R.drawable.ic_graph_diet_nor)
+        dietSel = BitmapFactory.decodeResource(context?.resources, R.drawable.ic_graph_diet_sel)
+        exerciseNor =
+            BitmapFactory.decodeResource(context?.resources, R.drawable.ic_graph_exercise_nor)
+        exerciseSel =
+            BitmapFactory.decodeResource(context?.resources, R.drawable.ic_graph_exercise_sel)
         translateMatrix = Matrix()
 
         ringPaint.apply {
@@ -134,18 +145,21 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
             textSize = dpiToPixels(context!!, 12)
             isAntiAlias = true
             textAlign = Paint.Align.RIGHT
+            typeface = ResourcesCompat.getCachedFont(context, R.font.suit_bold_700)
         }
         unitTextPaint.apply {
             color = Color.BLACK
             textSize = dpiToPixels(context!!, 8)
             isAntiAlias = true
             textAlign = Paint.Align.LEFT
+            typeface = ResourcesCompat.getCachedFont(context, R.font.suit_medium_500)
         }
         timeTextPaint.apply {
             color = Color.BLACK
             textSize = dpiToPixels(context!!, 8)
             isAntiAlias = true
             textAlign = Paint.Align.CENTER
+            typeface = ResourcesCompat.getCachedFont(context, R.font.suit_medium_500)
         }
     }
 
@@ -155,29 +169,8 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
         canvasWidth = width.toFloat()
         canvasHeight = height.toFloat() - viewHeightMargin
 
-        mGestureDetector = GestureDetector(context, mOnSimpleOnGestureListener)
-        mScroller = OverScroller(context)
-
+        if (xValueList.isEmpty() || yValueList.isEmpty()) return
         preCalculated()
-        if (xValueList.isEmpty()) return
-        moveLastScroller()
-    }
-
-    /*스크롤 맨끝으로 이동 시키는 함수*/
-    private fun moveLastScroller() {
-        /** 마지막 좌표에 여백 추가*/
-        val addLastMargin = dpiToPixels(context, 30)
-        xPointList.last().let { lastValue ->
-            val lastWidthPoint = -(lastValue - canvasWidth + addLastMargin)
-            scrollByX = lastWidthPoint
-            ViewCompat.postInvalidateOnAnimation(this)
-//            d("lineChart initScrollLocation lastWidthPoint : ${lastWidthPoint}")
-        }
-    }
-
-    private fun scrollerCal(){
-        d("scrollerCal xPointList : ${xPointList}")
-        d("scrollerCal xPointList : ${canvasWidth}")
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -188,16 +181,12 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
         drawTargetZone(canvas)
         drawTargetZoneText(canvas)
         drawTranslate(canvas)
-        d("lineChart onDraw scrollByX : ${scrollByX}")
     }
 
     private fun drawTranslate(canvas: Canvas) {
         /** clipRect left 마진*/
         val leftMargin = dpiToPixels(context, 53)
         canvas.save()
-//        canvas.clipRect(leftMargin, 0f, xPointList.last(), canvas.height.toFloat())
-        translateMatrix.setTranslate(scrollByX, 0f)
-        canvas.setMatrix(translateMatrix)
         /**이동해야하는 함수들*/
         curveLinePaint.color = highLineColor
         drawLine(canvas)
@@ -209,8 +198,8 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
         drawLine(canvas)
         canvas.restore()
         /** 그릴 영역 지정 끝*/
-        drawFoodHealthImage(canvas)
         drawArcsRing(canvas)
+        drawFoodHealthImage(canvas)
         if (touchMode == "blood") {
             drawTextBubbleBlood(canvas)
         } else if (touchMode == "foodHealth") {
@@ -228,32 +217,35 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
         d(
             "lineChart curveLinePreDraw yValueList : ${yValueList}",
         )
+
+        val xPointTemp = ArrayList<Float>()
+        val yPointTemp = ArrayList<Float>()
         xValueList.forEachIndexed { index, value ->
             val xValuePoint = xPointCal(value)
-            d("lineChart curveLinePreDraw x : index : ${index} ,xValuePoint : ${xValuePoint}")
-            xPointList.add(xValuePoint)
+            d("lineChart curveLinePreDraw x : index : ${index} ,xValuePoint : ${xValuePoint} , value: ${value}")
+            xPointTemp.add(xValuePoint)
         }
 
         yValueList.forEachIndexed { index, value ->
+//            val random = (100..300).random()//Test용
             val yValuePoint = yPointCal(value)
             d("lineChart curveLinePreDraw y : index : ${index} ,yValuePoint : ${yValuePoint}")
-            yPointList.add(yValuePoint)
+            yPointTemp.add(yValuePoint)
         }
+        xPointList = xPointTemp
+        yPointList = yPointTemp
         d("lineChart curveLinePreDraw point : xPointList : ${xPointList}")
         d("lineChart curveLinePreDraw point : yPointList : ${yPointList}")
-
-        /** 타겟존 계산*/
-        targetZoneLowPoint = yPointCal(70)
-        targetZoneHighPoint = yPointCal(140)
-
         preDrawFoodHealthImage()
     }
 
     /** draw image 미리 그리기*/
-    private fun preDrawFoodHealthImage(){
-        if (xFoodHealthValueList.isEmpty()) return
+    private fun preDrawFoodHealthImage() {
+        val xFoodHealthPointListTemp = ArrayList<Float>()
+        val yFoodHealthPointListTemp = ArrayList<Float>()
+        if (xFoodHealthTimeList.isEmpty()) return
         d("drawFoodHealthImage xValueList = : ${xValueList}")
-        xFoodHealthValueList.forEachIndexed { index, value ->
+        xFoodHealthTimeList.forEachIndexed { index, value ->
             val closestIndex = findClosestSmaller(xValueList, value)
             d("drawFoodHealthImage value = : ${value}")
             d("drawFoodHealthImage closestIndex : ${closestIndex}")
@@ -279,12 +271,15 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
                 }
             }
 
-            val xPoint = xFoodValuePoint//intersection?.first ?: 0f
-            val yPoint = intersection?.second ?: 0f//intersection ?: 0f
-            xFoodHealthPointList.add(xPoint)
-            yFoodHealthPointList.add(yPoint)
-            d("drawFoodHealthImage first = : ${xPoint}")
-            d("drawFoodHealthImage second = : ${yPoint}")
+            xFoodHealthPointListTemp.add(xFoodValuePoint)
+            yFoodHealthPointListTemp.add(intersection?.second ?: 0f)
+            xFoodHealthPointList = xFoodHealthPointListTemp
+            yFoodHealthPointList = yFoodHealthPointListTemp
+
+            /** http://swrnd.olivestonelab.com:34101/proj/lguplus/gcare/issue/-/issues/335
+             * 혈당 앱 down 이슈*/
+            /*xFoodHealthPointList.add(xFoodValuePoint)
+            yFoodHealthPointList.add(intersection?.second ?: 0f)*/
         }
     }
 
@@ -298,7 +293,7 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
         val leftMargin = dpiToPixels(context, (53 + 14))
 
         /** 아이템 전체 leftMargin, 아이템 간에 간격 조정됨 */
-        val leftMarginInterval = dpiToPixels(context, (35))
+        val leftMarginInterval = dpiToPixels(context, (90))
         val xPercent = calHourPercentage(value)
         val xValuePoint = xPercent * (canvasWidth - leftMarginInterval) + leftMargin
 
@@ -350,13 +345,12 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
 
     /** bg 영역 타겟존 영역*/
     private fun drawTargetZone(canvas: Canvas) {
+        /** 타겟존 계산*/
+        targetZoneLowPoint = yPointCal(70)
+        targetZoneHighPoint = yPointCal(140)
         val leftMargin = dpiToPixels(context, 53)
         canvas.drawRect(
-            leftMargin,
-            targetZoneHighPoint,
-            canvasWidth,
-            targetZoneLowPoint,
-            targetZonePaint
+            leftMargin, targetZoneHighPoint, canvasWidth, targetZoneLowPoint, targetZonePaint
         )
     }
 
@@ -368,7 +362,7 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
 
     private fun drawLine(canvas: Canvas) {
         curveLinePath.reset()
-        curveLinePath.moveTo(0f, yPointList[0])
+        curveLinePath.moveTo(xPointList[0], yPointList[0])
         for (index in 0 until xValueList.size) {
             curveLinePath.lineTo(xPointList[index], yPointList[index])
             /*이미지 좌표에 그리기*/
@@ -376,6 +370,7 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
         }
         canvas.drawPath(curveLinePath, curveLinePaint)
     }
+
 
     /** 두직선 좌표로 교점 구해서 음식,운동 아이콘 그리기*/
     private fun drawFoodHealthImage(canvas: Canvas) {
@@ -388,14 +383,27 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
     private fun drawImage(
         canvas: Canvas, index: Int, xValuePoint: Float, yValuePoint: Float
     ) {
-        testImage?.let { image ->
+        if (xFoodHealthValueList.isEmpty()) return
+        if (xFoodHealthValueList[index].healthType == "체중") return
+        val drawImage = if (xFoodHealthValueList[index].healthType == "음식") {
+            if (index == touchIndex && touchMode == "foodHealth") {
+                dietSel
+            } else {
+                dietNor
+            }
+
+        } else {
+            if (index == touchIndex && touchMode == "foodHealth") {
+                exerciseSel
+            } else {
+                exerciseNor
+            }
+        }
+        drawImage?.let { image ->
             val centerX = (xValuePoint - (image.width.toFloat() / 2f))
             val centerY = (yValuePoint - (image.height.toFloat() / 2f))
             canvas.drawBitmap(
-                image,
-                centerX,
-                centerY,
-                null
+                image, centerX, centerY, null
             )
         }
     }
@@ -421,17 +429,28 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
     /** 말풍선 그리기 혈당*/
     private fun drawTextBubbleBlood(canvas: Canvas) {
         /** 말풍선 */
-        val width = dpiToPixels(context, 40)
-        val height = dpiToPixels(context, 40)
+        val width = dpiToPixels(context, (72 / 2))
+        val height = dpiToPixels(context, 51)
         val bottomMargin = dpiToPixels(context, 20)
 
+        /** 실제 그려야할 말풍선 좌표값*/
+        val realTopPoint = yPointList[touchIndex] - (height + bottomMargin)
+        val realBottomPoint = yPointList[touchIndex] - bottomMargin
+
+        /** top 좌표가 0보다 작으면(화면 밖으로 그리기 때문에)
+         * top,bottom 을 다시 계산
+         * 0보다 작은 경우 => 절대값 real top 좌표값을 + 해준다 => 최대 0으로 좌표가 변경됨*/
+        val calTopPoint = if (realTopPoint > 0f) realTopPoint else 0f
+        val calBottomPoint =
+            if (realTopPoint > 0f) realBottomPoint else (realBottomPoint + abs(realTopPoint))
         val rectF = RectF(
             xPointList[touchIndex] - width,
-            yPointList[touchIndex] - (height + bottomMargin),
+            calTopPoint,
             xPointList[touchIndex] + width,
-            yPointList[touchIndex] - bottomMargin
+            calBottomPoint,
         )
-        val radius = dpiToPixels(context, 10)
+
+        val radius = dpiToPixels(context, 8)
 
         canvas.drawRoundRect(rectF, radius, radius, balloonPaint)
 
@@ -450,19 +469,17 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
 
         /** 텍스트 */
         val textValue = yValueList[touchIndex].toString()
-        val textUnit = "mg/dl"
-        val textTime = ChartDateUtils().chartGetTimestampTimeMin(xValueList[touchIndex])
+        val textUnit = "mg/dL"
+        val textTime = ChartDateUtils().getHHMMaGetTimestamp(xValueList[touchIndex])
         textPaint.textAlign = Paint.Align.RIGHT
+
         val bounds = Rect()
         textPaint.getTextBounds("100", 0, 3, bounds)
         val textBoundsHeight = bounds.height()
         val textBoundsWidth = bounds.width()
 
         canvas.drawText(
-            textValue,
-            rectF.left + width,
-            rectF.top + rectF.height() / 2,
-            textPaint
+            textValue, rectF.left + width, rectF.top + rectF.height() / 2, textPaint
         )
         canvas.drawText(
             textUnit,
@@ -480,10 +497,32 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
 
     /** 말풍선 그리기 음식 운동*/
     private fun drawTextBubbleFoodHealth(canvas: Canvas) {
+        if (xFoodHealthValueList.isEmpty()) return
+        if (xFoodHealthValueList[touchIndex].healthType == "체중") return
+        /** healthType에 따라 다른 텍스트 값 */
+        val text = if (xFoodHealthValueList[touchIndex].healthType == "음식") {
+            xFoodHealthValueList[touchIndex].detailInfo
+        } else {
+            xFoodHealthValueList[touchIndex].detailType
+        }
+        val textTime = ChartDateUtils().getHHMMaGetTimestamp(xFoodHealthTimeList[touchIndex])
+        textPaint.textAlign = Paint.Align.CENTER
+
+        /** 텍스트 자르기*/
+        val maxLength = 14
+        val textValue = ChartEngineUtils().ellipsizeText(text, maxLength)
+
+        /** 텍스트*/
+        val bounds = Rect()
+        textValue.let { textPaint.getTextBounds(textValue, 0, textValue.length, bounds) }
+        d("logTest textValue.length : ${textValue.length}")
+        val textBoundsHeight = bounds.height()
+        val textBoundsWidth = bounds.width()
+
         /** 말풍선 */
-        val width = dpiToPixels(context, 40)
-        val height = dpiToPixels(context, 40)
-        val bottomMargin = dpiToPixels(context, 20)
+        val width = (textBoundsWidth / 2) + dpiToPixels(context, 10)//dpiToPixels(context, (72/2))
+        val height = dpiToPixels(context, 51)
+        val bottomMargin = dpiToPixels(context, 24)
 
         val rectF = RectF(
             xFoodHealthPointList[touchIndex] - width,
@@ -512,22 +551,8 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
 //        d("drawTextBubbleFoodHealth touchIndex : ${touchIndex}")
 //        d("drawTextBubbleFoodHealth chartGetTimestampTimeMin : ${ChartDateUtils().chartGetTimestampTimeMin(xFoodHealthValueList[touchIndex])}")
         /** 텍스트 */
-        val text = "음식 음식 음식 음식 음식 음식 음식 음식"
-        val textTime = ChartDateUtils().chartGetTimestampTimeMin(xFoodHealthValueList[touchIndex])
-        textPaint.textAlign = Paint.Align.CENTER
-
-        val maxLength = 14
-        val textValue = ellipsizeText(text, maxLength)
-
-        val bounds = Rect()
-        textPaint.getTextBounds("100", 0, 3, bounds)
-        val textBoundsHeight = bounds.height()
-
         canvas.drawText(
-            textValue,
-            rectF.left + width,
-            rectF.top + rectF.height() / 2,
-            textPaint
+            textValue, rectF.left + width, rectF.top + rectF.height() / 2, textPaint
         )
         canvas.drawText(
             textTime,
@@ -537,13 +562,6 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
         )
     }
 
-    /** 글자 자르기*/
-    fun ellipsizeText(originalText: String, maxLength: Int): String {
-        if (originalText.length <= maxLength) {
-            return originalText
-        }
-        return originalText.substring(0, maxLength) + "..."
-    }
 /*@@@@@@@@@@@@@@@@@@@@@@@@ 터치 이벤트 */
     /** 터치 이벤트*/
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -555,23 +573,10 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
             touchActionUpEvent(event.x, event.y)
         }
         if (event?.action == MotionEvent.ACTION_DOWN) {
-            this.parent.requestDisallowInterceptTouchEvent(true)
-            /** down x값과 이동한 scroll 값을 빼줘서 선택한 현재화면의 down값을 계산함(스크롤값이 -라서 빼줌) */
-            mScroller.forceFinished(true)
-            lastDownX = (event.x - scrollByX)
-            /*d("lineChart ACTION_DOWN x : " + event.x)
-            d("lineChart ACTION_DOWN y : " + event.y)
-            d("lineChart ACTION_DOWN scrollByX : " + scrollByX)
-            d("lineChart ACTION_DOWN startX : " + lastDownX)*/
         }
 
         if (event?.action == MotionEvent.ACTION_MOVE) {
-            /*d("lineChart ACTION_MOVE x : " + event.x)
-            d("lineChart ACTION_MOVE y : " + event.y)*/
-            touchActionMoveEvent((event.x), event.y)
         }
-        event?.let { mGestureDetector?.onTouchEvent(it) }
-
         return true
     }
 
@@ -579,31 +584,24 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
      * point list범위로
      * 1. event.x - scrollByX 해줘서 스크롤 했을때 x값 계산*/
     private fun touchActionUpEvent(touchX: Float, touchY: Float) {
-        val currentTouch = touchX - scrollByX
+        val currentTouch = touchX
 //        d("lineChart Touch touchEvent touchX : " + touchX)
 //        d("lineChart Touch touchEvent currentTouch : " + currentTouch)
-        val clickPadding = 50f
-        for (index in 0 until xValueList.size) {
+        val clickPadding = 25f
+        val clickPaddingY = 200f
+        for (index in 0 until xPointList.size) {
             val xValuePoint = xPointList[index]
             val yValuePoint = yPointList[index]
-            if (currentTouch >= (xValuePoint - clickPadding) &&
-                currentTouch <= (xValuePoint + clickPadding) &&
-                touchY >= (yValuePoint - clickPadding) &&
-                touchY <= (yValuePoint + clickPadding)
-            ) {
+            if (currentTouch >= (xValuePoint - clickPadding) && currentTouch <= (xValuePoint + clickPadding) && touchY >= (yValuePoint - clickPaddingY) && touchY <= (yValuePoint + clickPaddingY)) {
                 touchMode = "blood"
                 touchIndex = index
                 postInvalidateOnAnimation()
             }
         }
-        for (index in 0 until xFoodHealthValueList.size) {
+        for (index in 0 until xFoodHealthPointList.size) {
             val xValuePoint = xFoodHealthPointList[index]
             val yValuePoint = yFoodHealthPointList[index]
-            if (currentTouch >= (xValuePoint - clickPadding) &&
-                currentTouch <= (xValuePoint + clickPadding) &&
-                touchY >= (yValuePoint - clickPadding) &&
-                touchY <= (yValuePoint + clickPadding)
-            ) {
+            if (currentTouch >= (xValuePoint - clickPadding) && currentTouch <= (xValuePoint + clickPadding) && touchY >= (yValuePoint - clickPaddingY) && touchY <= (yValuePoint + clickPaddingY)) {
                 touchMode = "foodHealth"
                 touchIndex = index
                 postInvalidateOnAnimation()
@@ -611,94 +609,11 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
         }
     }
 
-    /** 터치 드래그 이벤트*/
-    private fun touchActionMoveEvent(touchX: Float, touchY: Float) {
-        d("lineChart touchActionMoveEvent touchX : " + touchX)
-        d("lineChart touchActionMoveEvent startX : " + lastDownX)
-        d("lineChart touchActionMoveEvent scrollByX : " + scrollByX)
-        d("lineChart touchActionMoveEvent xValueList.last() : " + xPointList.last())
-        /** move x값과 위에서 계산한 lastDownX값을 -해서 현재 스크롤 값으로 계산  */
-        scrollByX = touchX - lastDownX
-        /** 스크롤 값이 0 보다 큰경우 스크롤값 초기화 시킴*/
-        if (scrollByX > 0) {
-            scrollByX = 0f
-        }
 
-        /** 마지막 좌표에 여백 추가*/
-        val addLastMargin = dpiToPixels(context, 30)
-        /** 마지막 좌표 - width*/
-        xPointList.last().let { lastValue ->
-            val lastWidthPoint = -(lastValue - canvasWidth + addLastMargin)
-            if (scrollByX < lastWidthPoint) {
-                scrollByX = lastWidthPoint
-            }
-        }
-
-        ViewCompat.postInvalidateOnAnimation(this)
-    }
-
-    /** 심플 제스처 리스너 생성*/
-    private val mOnSimpleOnGestureListener: GestureDetector.SimpleOnGestureListener =
-        object : GestureDetector.SimpleOnGestureListener() {
-            override fun onFling(
-                e1: MotionEvent,
-                e2: MotionEvent,
-                velocityX: Float,
-                velocityY: Float
-            ): Boolean {
-                /** 움직인 x - 기존 x = 이동할 거리 값*/
-                val distanceX = e2.x - e1.x
-
-                d("lineChart onFling distanceX : ${distanceX}")
-                mScroller.startScroll(scrollByX.toInt(), 0, distanceX.toInt(), 0, 500)
-
-                return super.onFling(e1, e2, velocityX, velocityY)
-            }
-        }
-
-    /** 스크롤 이벤트 들어오는 함수
-     * currVelocity를 사용해야 들어옴
-     * */
-    override fun computeScroll() {
-        /*d("lineChart computeScroll getCurrX(): ${mScroller.currX} ")
-        d("lineChart computeScroll currVelocity(): ${mScroller.currVelocity} ")
-        d("lineChart computeScroll scrollByX(): ${scrollByX} ")
-        d("lineChart computeScroll computeScrollOffset: ${mScroller.computeScrollOffset()} ")*/
-        if (mScroller.computeScrollOffset()) { //현재 스크롤 상태를 업데이트 한다.
-            val currX: Int = mScroller.currX //현재 x값
-            val currY: Int = mScroller.currY //현재 y값
-            val currV: Float = mScroller.currVelocity //현재 속도값(받아오지 않으면 속도가 바뀌지 않는다)
-//            d("lineChart computeScroll currX : ${currX} ")
-//            d("lineChart computeScroll currY : ${currY} ")
-//            d("lineChart computeScroll currV : ${currV} ")
-//            d("lineChart computeScroll scrollByX(): ${scrollByX} ")
-
-            /**이부분에서 animation을 실행하거나 view의 상태를 바꿔준다.*/
-            scrollByX = currX.toFloat()
-
-            /** ACTION_MOVE와 같은 체크함수*/
-            if (scrollByX > 0) {
-                scrollByX = 0f
-            }
-
-            /** 마지막 좌표에 여백 추가*/
-            val addLastMargin = dpiToPixels(context, 30)
-            /** 마지막 좌표 - width*/
-            xPointList.last().let { lastValue ->
-                val lastWidthPoint = -(lastValue - canvasWidth + addLastMargin)
-                if (scrollByX < lastWidthPoint) {
-                    scrollByX = lastWidthPoint
-                }
-            }
-            ViewCompat.postInvalidateOnAnimation(this)
-        }
-        super.computeScroll()
-    }
 /*@@@@@@@@@@@@@@@@@@@@@@@@ 터치 이벤트 */
     /** 두직선 교차점 구하는 공식*/
     private fun getIntersection(
-        x1: Float, y1: Float, x2: Float, y2: Float,
-        x3: Float, y3: Float, x4: Float, y4: Float
+        x1: Float, y1: Float, x2: Float, y2: Float, x3: Float, y3: Float, x4: Float, y4: Float
     ): Pair<Float, Float>? {
         val det = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
         if (det == 0f) return null // 두 직선이 평행이므로 교점이 없음
@@ -711,15 +626,14 @@ class ChartLineNotScrollDraw(context: Context?, attrs: AttributeSet?) :
     /** 리스트에서 특정 값보다 작은 수중에 근접 값 찾는 공식 */
     private fun findClosestSmaller(list: ArrayList<Long>, target: Long): Int {
 //       테스트 val list = listOf(10, 20, 30, 40, 50)
-
         var closest: Long? = null
         var closestIndex: Int? = null
         list.forEachIndexed { index, num ->
-            if (num < target && (closest == null || target - num < target - closest!!)) {
+            if (num <= target && (closest == null || target - num < target - closest!!)) {
                 closest = num
                 closestIndex = index
-                /*d("findClosestSmaller num : ${num}")
-                d("findClosestSmaller index : ${index}")*/
+//                d("findClosestSmaller num : ${num}")
+//                d("findClosestSmaller index : ${index}")
             }
         }
 //        for (num in list) {

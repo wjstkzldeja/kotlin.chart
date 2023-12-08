@@ -15,6 +15,8 @@ class ChartLineAxisDraw(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
     private var translateMatrix: Matrix
     private var scrollByX: Float = 0f
+
+    /** 캔버스 사이즈 공용으로 사용하기 위해*/
     private var canvasWidth: Float = 0.0f
     private var canvasHeight: Float = 0.0f
 
