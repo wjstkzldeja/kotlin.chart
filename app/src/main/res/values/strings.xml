@@ -2,14 +2,9 @@
     <string name="app_name">ksh_gcare_chart_test</string>
     <string name="test_string">test_string</string>
 
-    <!--food lens-->
-    <!--  <string name="foodlens_app_token">[5752142f55e04e7b9149083c6a508db7]</string>
-      <string name="foodlens_company_token">[b6dfb9da11f441e0ae123bbea96c7086]</string>
-      <string name="foodlens_access_token">[b6dfb9da11f441e0ae123bbea96c7086]</string>-->
-
-    <string name="foodlens_app_token">5752142f55e04e7b9149083c6a508db7</string>
-    <string name="foodlens_company_token">b6dfb9da11f441e0ae123bbea96c7086</string>
-    <string name="foodlens_access_token">b6dfb9da11f441e0ae123bbea96c7086</string>
+    <string name="foodlens_app_token">aaa</string>
+    <string name="foodlens_company_token">aaa</string>
+    <string name="foodlens_access_token">aaa</string>
 
     <!-- fragment_terra -->
     <string name="btn_freestyle_libre">freestyle libre</string>
